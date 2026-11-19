@@ -207,7 +207,7 @@ function pascalTriangle(n: number): number[][] {
     } else if (i > 1) {
       const prev = getOrFail(final[i - 1]);
       const next = [] as number[];
-      for (let j = 0; j < i; j++) {
+      for (let j = 0; j <= i; j++) {
         if (j === 0) {
           next.push(1);
         } else if (j === prev.length) {
