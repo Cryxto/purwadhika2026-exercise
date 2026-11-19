@@ -238,30 +238,23 @@ console.log(pascalTriangle(5));
 // Explanation: In this case, no
 
 function findProfit(prices: number[]) {
-  let lowestIndex = 0;
-  prices.forEach((p, i) => {
-    if (prices.length - 1 === i) {
-      return;
+  let profit = 0
+  let lowestPrice = getOrFail(prices[0])
+
+  for (const [i,currentPrice] of prices.entries()) {
+    if (i+1===prices.length) {
+      break
     }
-    const curr = getOrFail(prices[i + 1]);
-    if (p > curr) {
-      lowestIndex = i;
+    if (lowestPrice > currentPrice) {
+      lowestPrice = currentPrice
     }
-  });
-  const ProfitKv = new Map<number, number>();
-  if (lowestIndex > 0) {
-    prices.forEach((p, i) => {
-      ProfitKv.set(i, p - lowestIndex);
-    });
-
-    const Sorted = Array.from(ProfitKv.entries()).sort(
-      ([_, prev], [__, next]) => prev + next,
-    );
-
-    const highest = getOrFail(Sorted[0])
-    return getOrFail(highest[1])
-
+    const candidate = currentPrice - lowestPrice
+    
+    if (candidate>profit) {
+      profit = candidate
+    }
   }
-  return 0;
+  return profit;
 }
 console.log(findProfit([7,1,5,3,6,4]))
+console.log(findProfit([7,6,4,3,1]))
