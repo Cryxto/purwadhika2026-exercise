@@ -31,7 +31,7 @@ function mergeStudentsArray(...students: Student[][]) {
   const flatten = students.flat();
   const grouped = Object.groupBy(flatten, (s) => s.name);
   const deduped = Object.entries(grouped).map(([_, el]) => getOrFail(getOrFail(el)[0]));
-  return deduped
+  return deduped;
 }
 console.log(
   mergeStudentsArray(
@@ -51,6 +51,13 @@ console.log(
 // Example :
 // Input : [{ name: ‘David’, age: 20 }]
 // Output : [{ David: ‘name’, 20: ‘age’}]
+
+function swapKV(arrayOfRecords: Array<Record<any, unknown>>) {
+  return arrayOfRecords.map((el) =>
+    Object.fromEntries(Array.from(Object.entries(el)).map(([k, v]) => [v, k])),
+  );
+}
+console.log(swapKV([{ name: "David", age: 20 }]));
 
 //3. Create a function to find a factorial number using recursion
 // Example
