@@ -174,15 +174,21 @@ function convertRomanNumber(roman: string) {
   let value = 0;
   for (let i = 0; i < roman.length; i++) {
     const curr = getOrFail(roman[i]);
+    if (!roman[i+1]) {
+      continue
+    }
     const next = getOrFail(roman[i + 1]);
     if (Substractor.includes(curr) && isInSubtractorRange(curr, next)) {
       const pair = getOrFail(RomanKV.get(next)) - getOrFail(RomanKV.get(curr));
       value += pair;
       i++;
+      continue
     }
+    value+=getOrFail(RomanKV.get(curr))
   }
+  return value
 }
-
+console.log(convertRomanNumber('I'))
 //7
 // Given an integer numRows, return the first numRows of Pascal's triangle.
 // In Pascal's triangle, each number is the sum of the two numbers directly above it as shown →
