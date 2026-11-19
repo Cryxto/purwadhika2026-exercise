@@ -190,6 +190,28 @@ console.log(convertRomanNumber("MCMXCIV"));
 // Input: numRows = 1
 // Output: [[1]]
 
+function pascalTriangle(n: number) : number[][] {
+  if (n === 1) {
+    return [[1]];
+  } else if (n === 2) {
+    return [[1],[1, 1]];
+  }
+
+  const final = [] as number[][]
+
+  for (let i = 0; i < n; i++) {
+    if (i === 0) {
+      final.push([1])
+    } else if (i===1) {
+      final.push([1,1])
+    } else if (i>1) {
+      const prev = getOrFail(final[i-1])
+
+    }
+  }
+  return final
+}
+
 // 8
 // You are given an array prices where prices[i] is the price of a given stock on the ith day.
 // You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
