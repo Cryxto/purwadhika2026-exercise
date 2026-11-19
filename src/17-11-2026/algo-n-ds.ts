@@ -73,6 +73,19 @@ console.log(anagramCheck('rat','car'))
 
 //4
 
+function climbStairs(n: number) {
+  let prev = 1; // ways to reach step 0
+  let curr = 1; // ways to reach step 1
+  for (let step = 2; step <= n; step++) {
+    const next = prev + curr;
+    prev = curr;
+    curr = next;
+  }
+  return curr;
+}
+console.log(climbStairs(3))
+console.log(climbStairs(5))
+
 //5
 // Given an array nums of size n, return the majority element. The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
 // Example 1:
