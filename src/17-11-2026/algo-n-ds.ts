@@ -210,17 +210,18 @@ function pascalTriangle(n: number): number[][] {
       for (let j = 0; j < i; j++) {
         if (j === 0) {
           next.push(1);
-        } else if (j === prev.length - 1) {
+        } else if (j === prev.length) {
           next.push(1);
-        } else {
+        } else if (j > 0) {
           next.push(getOrFail(prev[j]) + getOrFail(prev[j - 1]));
         }
       }
+      final.push(next);
     }
   }
   return final;
 }
-console.log(pascalTriangle(5))
+console.log(pascalTriangle(5));
 
 // 8
 // You are given an array prices where prices[i] is the price of a given stock on the ith day.
