@@ -1,3 +1,10 @@
+function getOrFail<T = unknown>(params: T) {
+  if (!!params) {
+    return params!;
+  }
+  throw new Error("Not Exist!");
+}
+
 //1
 const ALPHABET_SIZE = 26;
 
@@ -110,11 +117,11 @@ function findMajorityNums(nums: number[]) {
   const candidate = Array.from(kv.entries()).filter(
     ([nums, count], index) => count >= majorReq,
   );
-  return Object.keys(Object.fromEntries(candidate)).join(', ')
+  return Object.keys(Object.fromEntries(candidate)).join(", ");
 }
 
-console.log(findMajorityNums([3,2,3]))
-console.log(findMajorityNums([2,2,1,1,1,2,2]))
+console.log(findMajorityNums([3, 2, 3]));
+console.log(findMajorityNums([2, 2, 1, 1, 1, 2, 2]));
 
 //6
 // Create a function to convert roman numeral to integer.
@@ -130,6 +137,51 @@ console.log(findMajorityNums([2,2,1,1,1,2,2]))
 // Input: s = "MCMXCIV"
 // Output: 1994
 // Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+const RomanTable = {
+  I: 1,
+  V: 5,
+  X: 10,
+  L: 50,
+  C: 100,
+  D: 500,
+  M: 1000,
+} as const;
+
+const RomanKV = new Map(Object.entries(RomanTable));
+
+const Substractor = ["I", "X", "C"];
+
+function valueFromRoman(roman: string) {
+  const value = RomanKV.get(roman);
+  if (value) {
+    return value;
+  }
+  throw new Error("Invalid");
+}
+
+// each subtractor may only come before the next two bigger numerals (IV, IX, XL, XC, CD, CM)
+const SubtractorRange: Record<string, string[]> = {
+  I: ["V", "X"],
+  X: ["L", "C"],
+  C: ["D", "M"],
+};
+
+function isInSubtractorRange(curr: string, next: string) {
+  return SubtractorRange[curr]?.includes(next) ?? false;
+}
+
+function convertRomanNumber(roman: string) {
+  let value = 0;
+  for (let i = 0; i < roman.length; i++) {
+    const curr = getOrFail(roman[i]);
+    const next = getOrFail(roman[i + 1]);
+    if (Substractor.includes(curr) && isInSubtractorRange(curr, next)) {
+      const pair = getOrFail(RomanKV.get(next)) - getOrFail(RomanKV.get(curr));
+      value += pair;
+      i++;
+    }
+  }
+}
 
 //7
 // Given an integer numRows, return the first numRows of Pascal's triangle.
