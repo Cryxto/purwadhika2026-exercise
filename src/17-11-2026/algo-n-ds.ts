@@ -190,27 +190,37 @@ console.log(convertRomanNumber("MCMXCIV"));
 // Input: numRows = 1
 // Output: [[1]]
 
-function pascalTriangle(n: number) : number[][] {
+function pascalTriangle(n: number): number[][] {
   if (n === 1) {
     return [[1]];
   } else if (n === 2) {
-    return [[1],[1, 1]];
+    return [[1], [1, 1]];
   }
 
-  const final = [] as number[][]
+  const final = [] as number[][];
 
   for (let i = 0; i < n; i++) {
     if (i === 0) {
-      final.push([1])
-    } else if (i===1) {
-      final.push([1,1])
-    } else if (i>1) {
-      const prev = getOrFail(final[i-1])
-
+      final.push([1]);
+    } else if (i === 1) {
+      final.push([1, 1]);
+    } else if (i > 1) {
+      const prev = getOrFail(final[i - 1]);
+      const next = [] as number[];
+      for (let j = 0; j < i; j++) {
+        if (j === 0) {
+          next.push(1);
+        } else if (j === prev.length - 1) {
+          next.push(1);
+        } else {
+          next.push(getOrFail(prev[j]) + getOrFail(prev[j - 1]));
+        }
+      }
     }
   }
-  return final
+  return final;
 }
+console.log(pascalTriangle(5))
 
 // 8
 // You are given an array prices where prices[i] is the price of a given stock on the ith day.
