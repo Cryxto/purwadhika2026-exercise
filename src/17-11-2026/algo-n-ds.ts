@@ -65,11 +65,11 @@ function anagramCheck(s: string, t: string) {
   for (const [letter, count] of anchor.entries()) {
     if (candidate.get(letter) !== count) return false;
   }
-  return true
+  return true;
 }
 
-console.log(anagramCheck('anagram','nagaram'))
-console.log(anagramCheck('rat','car'))
+console.log(anagramCheck("anagram", "nagaram"));
+console.log(anagramCheck("rat", "car"));
 
 //4
 
@@ -83,8 +83,8 @@ function climbStairs(n: number) {
   }
   return curr;
 }
-console.log(climbStairs(3))
-console.log(climbStairs(5))
+console.log(climbStairs(3));
+console.log(climbStairs(5));
 
 //5
 // Given an array nums of size n, return the majority element. The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
@@ -94,6 +94,27 @@ console.log(climbStairs(5))
 // Example 2:
 // Input: nums = [2,2,1,1,1,2,2]
 // Output: 2
+
+function findMajorityNums(nums: number[]) {
+  const kv = new Map<number, number>();
+  nums.forEach((e, i) => {
+    if (kv.has(e)) {
+      const curr = kv.get(e) || 0;
+      kv.set(e, curr + 1);
+    } else {
+      kv.set(e, 1);
+    }
+  });
+  const numsSize = nums.length;
+  const majorReq = Math.round(numsSize / 2);
+  const candidate = Array.from(kv.entries()).filter(
+    ([nums, count], index) => count >= majorReq,
+  );
+  return Object.keys(Object.fromEntries(candidate)).join(', ')
+}
+
+console.log(findMajorityNums([3,2,3]))
+console.log(findMajorityNums([2,2,1,1,1,2,2]))
 
 //6
 // Create a function to convert roman numeral to integer.
@@ -123,7 +144,7 @@ console.log(climbStairs(5))
 // 8
 // You are given an array prices where prices[i] is the price of a given stock on the ith day.
 // You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
-// Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0. 
+// Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 // Example 1:
 // Input: prices = [7,1,5,3,6,4]
 // Output: 5
@@ -132,5 +153,4 @@ console.log(climbStairs(5))
 // Example 2:
 // Input: prices = [7,6,4,3,1]
 // Output: 0
-// Explanation: In this case, no 
-
+// Explanation: In this case, no
