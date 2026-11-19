@@ -149,16 +149,6 @@ const RomanTable = {
 
 const RomanKV = new Map(Object.entries(RomanTable));
 
-const Substractor = ["I", "X", "C"];
-
-function valueFromRoman(roman: string) {
-  const value = RomanKV.get(roman);
-  if (value) {
-    return value;
-  }
-  throw new Error("Invalid");
-}
-
 // each subtractor may only come before the next two bigger numerals (IV, IX, XL, XC, CD, CM)
 const SubtractorRange: Record<string, string[]> = {
   I: ["V", "X"],
@@ -174,21 +164,22 @@ function convertRomanNumber(roman: string) {
   let value = 0;
   for (let i = 0; i < roman.length; i++) {
     const curr = getOrFail(roman[i]);
-    if (!roman[i+1]) {
-      continue
-    }
-    const next = getOrFail(roman[i + 1]);
-    if (Substractor.includes(curr) && isInSubtractorRange(curr, next)) {
-      const pair = getOrFail(RomanKV.get(next)) - getOrFail(RomanKV.get(curr));
-      value += pair;
+    const next = roman[i + 1]; // string | undefined, no throw
+    if (next !== undefined && isInSubtractorRange(curr, next)) {
+      value += getOrFail(RomanKV.get(next)) - getOrFail(RomanKV.get(curr));
       i++;
-      continue
+      continue;
     }
-    value+=getOrFail(RomanKV.get(curr))
+    value += getOrFail(RomanKV.get(curr));
   }
-  return value
+  return value;
 }
-console.log(convertRomanNumber('I'))
+console.log(convertRomanNumber("III"));
+console.log(convertRomanNumber("IV"));
+console.log(convertRomanNumber("I"));
+console.log(convertRomanNumber("LVIII"));
+console.log(convertRomanNumber("MCMXCIV"));
+
 //7
 // Given an integer numRows, return the first numRows of Pascal's triangle.
 // In Pascal's triangle, each number is the sum of the two numbers directly above it as shown →
