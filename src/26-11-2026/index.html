@@ -4,10 +4,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <script type="module" src="./app/main.ts"></script> -->
-    <title>Exercises</title>
+    <title>Blog preview card</title>
+    <style>
+      /* LOW FIDELITY: layout and hierarchy only. Colors, fonts and the real image come later. */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        font-family: sans-serif;
+        color: #333;
+        background: #eee;
+      }
+
+      .card {
+        width: min(100%, 20rem);
+        padding: clamp(1rem, 4vw, 1.5rem);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75em;
+        background: #fff;
+        border: 2px solid #333;
+      }
+
+      .card__image {
+        aspect-ratio: 3 / 2;
+        display: grid;
+        place-items: center;
+        background: #ccc;
+        border: 1px dashed #666;
+        color: #666;
+        font-size: 0.875rem;
+      }
+
+      .card__tag {
+        align-self: flex-start;
+        margin: 0;
+        padding: 0.25em 0.75em;
+        background: #ddd;
+        border: 1px solid #999;
+        font-size: 0.875rem;
+        font-weight: bold;
+      }
+
+      .card__date {
+        margin: 0;
+        font-size: 0.875rem;
+      }
+
+      .card__title {
+        margin: 0;
+        font-size: clamp(1.25rem, 5vw, 1.5rem);
+      }
+
+      .card__text {
+        margin: 0;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      .card__author {
+        display: flex;
+        align-items: center;
+        gap: 0.75em;
+        font-weight: bold;
+      }
+
+      .card__avatar {
+        width: 2em;
+        height: 2em;
+        flex: none;
+        border-radius: 50%;
+        background: #ccc;
+        border: 1px dashed #666;
+      }
+    </style>
   </head>
   <body>
-    <h1>Web exercises</h1>
-    <h1>Web exercises</h1>
+    <article class="card">
+      <div class="card__image">[ illustration ]</div>
+
+      <p class="card__tag">Learning</p>
+      <p class="card__date">Published 21 Dec 2023</p>
+
+      <h1 class="card__title">HTML &amp; CSS foundations</h1>
+      <p class="card__text">
+        These languages are the backbone of every website, defining structure, content, and
+        presentation.
+      </p>
+
+      <footer class="card__author">
+        <div class="card__avatar"></div>
+        <span>Greg Hooper</span>
+      </footer>
+    </article>
   </body>
 </html>
