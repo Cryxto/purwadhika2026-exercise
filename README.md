@@ -22,11 +22,53 @@ pnpm exec tsx src/13-11-2026/oop-exercise.ts
 node src/5-11-2026/exercise_array_function.js
 ```
 
-Type-check the whole project with:
+Type-check the whole project (including the Effect diagnostics) with:
 
 ```sh
-pnpm exec tsc --noEmit
+pnpm typecheck
 ```
+
+## Web pages and backend
+
+[Vite](https://vite.dev/) serves browser code, [tsdown](https://tsdown.dev/) builds backend code, and both can use [Effect](https://effect.website/) v4.
+
+| Command | What it does |
+| --- | --- |
+| `pnpm dev` | Vite dev server on http://localhost:5173, proxying `/api` to port 3000 |
+| `pnpm dev:api` | Runs the demo API ([server.ts](src/demo/api/server.ts)) on port 3000 and reloads on changes |
+| `pnpm build` | Builds pages into `dist/web` and servers into `dist/server` |
+| `pnpm preview` | Serves the built pages |
+| `pnpm start:api` | Runs the built demo API |
+
+To see the demo, run `pnpm dev:api` and `pnpm dev` in two terminals, then open http://localhost:5173/demo/web/.
+
+### Adding a web exercise
+
+Create a folder with an `index.html` that loads a script, and optionally link it from [src/index.html](src/index.html):
+
+```html
+<!-- src/my-exercise/index.html -->
+<script type="module" src="./main.ts"></script>
+```
+
+The script can be `.ts` or `.js`. Open it at http://localhost:5173/my-exercise/.
+
+### Adding a server
+
+Name the entry file `server.ts` anywhere under `src/`. `pnpm build:api` builds `src/my-api/server.ts` into `dist/server/my-api/server.mjs`. Run it during development with `pnpm exec tsx watch src/my-api/server.ts`.
+
+### Adding React later
+
+```sh
+pnpm add react react-dom
+pnpm add -D @vitejs/plugin-react @types/react @types/react-dom
+```
+
+Then add `plugins: [react()]` to [vite.config.ts](vite.config.ts) (`import react from "@vitejs/plugin-react"`) and load a `main.tsx` from the page.
+
+## Editor
+
+`tsc` is TypeScript 7 (the native compiler), patched on install by [@effect/tsgo](https://github.com/Effect-TS/tsgo) to add Effect diagnostics. In VS Code, install the recommended extension, choose the workspace TypeScript version when asked, and restart the editor.
 
 ## Project structure
 
@@ -37,6 +79,7 @@ pnpm exec tsc --noEmit
 | `src/13-11-2026/` | Object-oriented programming exercises (TS) with the slide screenshots |
 | `src/17-11-2026/` | Algorithm and data structure exercises (TS) with the slide screenshots |
 | `src/19-11-2026/` | TypeScript and Promise exercises (TS) with the slide screenshots |
+| `src/demo/` | Example web page and Effect API sharing one schema |
 
 ### 5-11-2026: Array and function exercises
 
@@ -86,5 +129,6 @@ pnpm exec tsc --noEmit
 
 ## Tooling
 
-- TypeScript with `strict`, `noUncheckedIndexedAccess` and `nodenext` modules (see [tsconfig.json](tsconfig.json))
+- TypeScript 7 with `strict`, `noUncheckedIndexedAccess` and bundler module resolution (see [tsconfig.json](tsconfig.json))
+- Vite, tsdown, tsx and Effect v4
 - [@faker-js/faker](https://fakerjs.dev/) for seed data

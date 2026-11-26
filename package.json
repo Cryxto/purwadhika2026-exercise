@@ -1,19 +1,35 @@
 {
   "name": "purwadhika2026-exercise",
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },"type": "module",
+    "dev": "vite",
+    "dev:api": "tsx watch src/demo/api/server.ts",
+    "build": "pnpm build:web && pnpm build:api",
+    "build:web": "vite build",
+    "build:api": "tsdown",
+    "preview": "vite preview",
+    "start:api": "node dist/server/demo/api/server.mjs",
+    "typecheck": "tsc",
+    "prepare": "effect-tsgo patch"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.33.3",
+  "dependencies": {
+    "@effect/platform-node": "4.1.6",
+    "effect": "4.1.6"
+  },
   "devDependencies": {
+    "@effect/tsgo": "0.73.7",
     "@faker-js/faker": "^10.6.0",
     "@types/node": "^26.6.6",
+    "tsdown": "^0.23.7",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "7.0.2",
+    "vite": "^8.4.0"
   }
 }
