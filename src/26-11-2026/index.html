@@ -4,89 +4,130 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <script type="module" src="./app/main.ts"></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
     <title>Blog preview card</title>
     <style>
-      /* BEGINNER VERSION: fixed pixel sizes, not responsive on purpose. */
+      /* HIGH FIDELITY, beginner style: fixed pixel sizes, not responsive on purpose. */
 
       /* The whole page. */
       body {
-        margin: 0; /* remove the browser's default gap around the page */
-        padding: 40px; /* space between the card and the window edge */
-        background: #eee; /* light gray page */
-        font-family: sans-serif;
-        color: #333; /* dark gray text */
+        margin: 0;
+        padding: 60px 20px;
+        background: #f4d04e; /* yellow */
+        font-family: "Figtree", sans-serif; /* falls back to any sans-serif font */
+        font-size: 16px;
+        color: #111; /* near black */
       }
 
-      /* The white box. Everything else lives inside it. */
+      /* The white box. */
       .card {
-        width: 320px; /* fixed width */
-        margin: 0 auto; /* top/bottom 0, left/right auto = centered horizontally */
-        padding: 20px; /* space between the card border and its content */
+        width: 320px;
+        margin: 0 auto; /* centered horizontally */
+        padding: 24px;
         background: white;
-        border: 2px solid #333; /* thickness, style, color */
+        border: 2px solid #111;
+        border-radius: 20px; /* rounded corners */
+        box-shadow: 8px 8px 0 #111; /* x offset, y offset, blur (0 = sharp), color */
       }
 
-      /* Gray box that stands in for the picture. */
+      /* The picture area, drawn with CSS instead of a photo. */
       .card__image {
-        height: 200px; /* fixed height, the width fills the card */
-        background: #ccc;
-        border: 1px dashed #666;
-        text-align: center; /* center the label left-right */
-        line-height: 200px; /* same as height = center the label up-down */
-        color: #666;
+        position: relative; /* the shapes below are placed relative to this box */
+        height: 200px;
+        overflow: hidden; /* cut off anything that sticks out of the box */
+        border-radius: 10px;
+        background: #f4d04e;
+      }
+
+      /* White pill shape. ::before adds an extra element inside, before the content. */
+      .card__image::before {
+        content: ""; /* required, otherwise the shape does not show */
+        position: absolute; /* take it out of the flow, place it with top/left */
+        top: 30px;
+        left: 40px;
+        width: 150px;
+        height: 90px;
+        border-radius: 45px; /* half the height = pill */
+        background: white;
+      }
+
+      /* Black blob in the bottom-left corner. ::after adds one after the content. */
+      .card__image::after {
+        content: "";
+        position: absolute;
+        bottom: -70px; /* negative = partly outside, hidden by overflow */
+        left: -50px;
+        width: 200px;
+        height: 130px;
+        border-radius: 50%;
+        background: #111;
       }
 
       /* "Learning" label. */
       .card__tag {
-        display: inline-block; /* only as wide as its text, but padding still works */
-        margin: 16px 0 0 0; /* top right bottom left */
+        display: inline-block;
+        margin: 24px 0 0 0;
         padding: 4px 12px;
-        background: #ddd;
-        border: 1px solid #999;
+        border-radius: 4px;
+        background: #f4d04e;
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 800;
       }
 
       .card__date {
-        margin: 12px 0 0 0;
+        margin: 16px 0 0 0;
         font-size: 14px;
+        font-weight: 500;
       }
 
       .card__title {
         margin: 12px 0 0 0;
         font-size: 24px;
+        font-weight: 800;
       }
 
       .card__text {
         margin: 12px 0 0 0;
-        color: #666;
-        line-height: 24px; /* space between lines of text */
+        color: #6b6b6b; /* gray */
+        font-weight: 500;
+        line-height: 24px;
       }
 
       /* Row with the avatar and the name. */
       .card__author {
-        margin-top: 16px;
-        display: flex; /* put the children side by side */
-        align-items: center; /* line them up vertically in the middle */
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
       }
 
+      /* Circle with initials instead of a photo. */
       .card__avatar {
         width: 32px;
         height: 32px;
-        margin-right: 12px; /* space between the avatar and the name */
-        background: #ccc;
-        border: 1px dashed #666;
-        border-radius: 50%; /* 50% turns a square into a circle */
+        margin-right: 12px;
+        border-radius: 50%;
+        background: #cfe3ee; /* light blue */
+        display: flex; /* centers the initials inside the circle */
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 800;
       }
 
       .card__name {
-        font-weight: bold;
+        font-size: 14px;
+        font-weight: 800;
       }
     </style>
   </head>
   <body>
     <article class="card">
-      <div class="card__image">[ illustration ]</div>
+      <div class="card__image"></div>
 
       <p class="card__tag">Learning</p>
       <p class="card__date">Published 21 Dec 2023</p>
@@ -98,7 +139,7 @@
       </p>
 
       <footer class="card__author">
-        <div class="card__avatar"></div>
+        <div class="card__avatar">GH</div>
         <span class="card__name">Greg Hooper</span>
       </footer>
     </article>
