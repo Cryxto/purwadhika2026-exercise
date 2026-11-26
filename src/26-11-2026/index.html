@@ -6,82 +6,81 @@
     <!-- <script type="module" src="./app/main.ts"></script> -->
     <title>Blog preview card</title>
     <style>
-      /* LOW FIDELITY: layout and hierarchy only. Colors, fonts and the real image come later. */
-      * {
-        box-sizing: border-box;
-      }
+      /* BEGINNER VERSION: fixed pixel sizes, not responsive on purpose. */
 
+      /* The whole page. */
       body {
-        margin: 0;
-        min-height: 100dvh;
-        display: grid;
-        place-items: center;
-        padding: 1rem;
+        margin: 0; /* remove the browser's default gap around the page */
+        padding: 40px; /* space between the card and the window edge */
+        background: #eee; /* light gray page */
         font-family: sans-serif;
-        color: #333;
-        background: #eee;
+        color: #333; /* dark gray text */
       }
 
+      /* The white box. Everything else lives inside it. */
       .card {
-        width: min(100%, 20rem);
-        padding: clamp(1rem, 4vw, 1.5rem);
-        display: flex;
-        flex-direction: column;
-        gap: 0.75em;
-        background: #fff;
-        border: 2px solid #333;
+        width: 320px; /* fixed width */
+        margin: 0 auto; /* top/bottom 0, left/right auto = centered horizontally */
+        padding: 20px; /* space between the card border and its content */
+        background: white;
+        border: 2px solid #333; /* thickness, style, color */
       }
 
+      /* Gray box that stands in for the picture. */
       .card__image {
-        aspect-ratio: 3 / 2;
-        display: grid;
-        place-items: center;
+        height: 200px; /* fixed height, the width fills the card */
         background: #ccc;
         border: 1px dashed #666;
+        text-align: center; /* center the label left-right */
+        line-height: 200px; /* same as height = center the label up-down */
         color: #666;
-        font-size: 0.875rem;
       }
 
+      /* "Learning" label. */
       .card__tag {
-        align-self: flex-start;
-        margin: 0;
-        padding: 0.25em 0.75em;
+        display: inline-block; /* only as wide as its text, but padding still works */
+        margin: 16px 0 0 0; /* top right bottom left */
+        padding: 4px 12px;
         background: #ddd;
         border: 1px solid #999;
-        font-size: 0.875rem;
+        font-size: 14px;
         font-weight: bold;
       }
 
       .card__date {
-        margin: 0;
-        font-size: 0.875rem;
+        margin: 12px 0 0 0;
+        font-size: 14px;
       }
 
       .card__title {
-        margin: 0;
-        font-size: clamp(1.25rem, 5vw, 1.5rem);
+        margin: 12px 0 0 0;
+        font-size: 24px;
       }
 
       .card__text {
-        margin: 0;
+        margin: 12px 0 0 0;
         color: #666;
-        line-height: 1.5;
+        line-height: 24px; /* space between lines of text */
       }
 
+      /* Row with the avatar and the name. */
       .card__author {
-        display: flex;
-        align-items: center;
-        gap: 0.75em;
-        font-weight: bold;
+        margin-top: 16px;
+        display: flex; /* put the children side by side */
+        align-items: center; /* line them up vertically in the middle */
       }
 
       .card__avatar {
-        width: 2em;
-        height: 2em;
-        flex: none;
-        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        margin-right: 12px; /* space between the avatar and the name */
         background: #ccc;
         border: 1px dashed #666;
+        border-radius: 50%; /* 50% turns a square into a circle */
+      }
+
+      .card__name {
+        font-weight: bold;
       }
     </style>
   </head>
@@ -100,7 +99,7 @@
 
       <footer class="card__author">
         <div class="card__avatar"></div>
-        <span>Greg Hooper</span>
+        <span class="card__name">Greg Hooper</span>
       </footer>
     </article>
   </body>
